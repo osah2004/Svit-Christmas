@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVIT Christmas Tournament</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --xmas-deep: #1a2e1a;
+    --xmas-green: #2d5a27;
+    --xmas-green-mid: #3a7233;
+    --xmas-green-light: #4a8a42;
+    --xmas-pine: #1e3a1e;
+    --xmas-red: #b22234;
+    --xmas-red-dark: #8b1a2b;
+    --xmas-red-light: #d4344a;
+    --xmas-gold: #d4a843;
+    --xmas-gold-light: #e8c86a;
+    --xmas-gold-dim: #a88a35;
+    --xmas-cream: #faf8f0;
+    --xmas-snow: #f0ede4;
+    --xmas-card: #ffffff;
+    --xmas-border: #e0ddd2;
+
+    --text: #1a1a18;
+    --text-secondary: #6b6960;
+    --text-inverse: #faf8f0;
+
+    --radius: 10px;
+    --radius-lg: 14px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--xmas-cream);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ── Snowfall ── */
+  .snowfall {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .snow {
+    position: absolute;
+    top: -8px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.7;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    to { transform: translateY(calc(100vh + 10px)) rotate(360deg); }
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(160deg, var(--xmas-deep) 0%, var(--xmas-green) 40%, var(--xmas-pine) 100%);
+    padding: 2.2rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(212,168,67,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(178,34,52,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--xmas-red), var(--xmas-gold), var(--xmas-red), var(--xmas-gold), var(--xmas-red));
+  }
+  .header-deco {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 6px;
+    opacity: 0.9;
+  }
+  header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--xmas-gold-light);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  header .subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--xmas-green-light);
+    margin-top: 0.5rem;
+    font-weight: 600;
+  }
+  header .subtitle span { color: var(--xmas-gold); }
+
+  /* ── Nav ── */
+  nav {
+    display: flex;
+    background: var(--xmas-deep);
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgba(212,168,67,0.2);
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    flex: 1; min-width: 0;
+    padding: 0.75rem 0.4rem;
+    background: none; border: none;
+    color: var(--xmas-green-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  nav button:hover { color: var(--xmas-gold-light); }
+  nav button.active {
+    color: var(--xmas-gold-light);
+    border-bottom-color: var(--xmas-gold);
+  }
+
+  /* ── Layout ── */
+  .container { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--xmas-card);
+    border: 1px solid var(--xmas-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+
+  h2 {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--xmas-green);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  h2 .h2-accent { color: var(--xmas-red); }
+
+  /* ── Forms ── */
+  label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.3px;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid var(--xmas-border);
+    border-radius: var(--radius);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    background: var(--xmas-snow);
+    color: var(--text);
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--xmas-green-mid);
+    box-shadow: 0 0 0 3px rgba(45,90,39,0.1);
+  }
+  input[type="number"] { -moz-appearance: textfield; }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .input-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: flex-end; }
+  .input-row > div { flex: 1; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
+    padding: 0.55rem 1.1rem; border: none; border-radius: var(--radius);
+    font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600;
+    letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s;
+  }
+  .btn-primary { background: var(--xmas-green); color: var(--text-inverse); }
+  .btn-primary:hover { background: var(--xmas-green-mid); }
+  .btn-secondary { background: var(--xmas-snow); color: var(--xmas-green); border: 1px solid var(--xmas-border); }
+  .btn-secondary:hover { background: var(--xmas-border); }
+  .btn-accent { background: var(--xmas-red); color: white; }
+  .btn-accent:hover { background: var(--xmas-red-dark); }
+  .btn-gold { background: var(--xmas-gold); color: var(--xmas-deep); }
+  .btn-gold:hover { background: var(--xmas-gold-dim); }
+  .btn-danger { background: #c0392b; color: white; }
+  .btn-danger:hover { background: #962d22; }
+  .btn-sm { padding: 0.25rem 0.55rem; font-size: 0.68rem; }
+  .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+  /* ── Toggle ── */
+  .toggle-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.75rem; padding: 0.6rem 0.75rem;
+    background: var(--xmas-snow); border-radius: var(--radius);
+    border: 1px solid var(--xmas-border);
+  }
+  .toggle-row label { margin: 0; flex: 1; font-size: 0.84rem; color: var(--text); font-weight: 500; }
+  .toggle-row input[type="checkbox"] {
+    width: 18px; height: 18px; accent-color: var(--xmas-red); cursor: pointer; flex-shrink: 0;
+  }
+
+  /* ── Player list ── */
+  .player-list { list-style: none; }
+  .player-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.55rem 0.7rem; background: var(--xmas-snow);
+    border-radius: var(--radius); margin-bottom: 0.35rem;
+    border: 1px solid transparent; transition: all 0.1s;
+  }
+  .player-item:hover { border-color: var(--xmas-green-light); background: #eef5ec; }
+  .player-num {
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--xmas-red); color: white;
+    border-radius: 50%; font-size: 0.63rem; font-weight: 700; flex-shrink: 0;
+  }
+  .player-name { flex: 1; font-size: 0.88rem; font-weight: 500; }
+
+  /* ── Teams ── */
+  .teams-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem;
+  }
+  .team-card {
+    background: var(--xmas-snow); border: 1px solid var(--xmas-border);
+    border-radius: var(--radius); padding: 0.75rem;
+    transition: all 0.15s; position: relative; overflow: hidden;
+  }
+  .team-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--xmas-red), var(--xmas-gold));
+  }
+  .team-card:hover { border-color: var(--xmas-green-light); }
+  .team-card h4 {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--xmas-green);
+    margin: 0.2rem 0 0.4rem; padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--xmas-border);
+  }
+  .team-card .team-hcp { font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.3rem; }
+  .team-card ul { list-style: none; }
+  .team-card ul li { padding: 0.15rem 0; font-size: 0.84rem; }
+
+  /* ── Tables ── */
+  .table-wrap {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius); border: 1px solid var(--xmas-border);
+  }
+  .course-table, .score-table { width: 100%; border-collapse: collapse; }
+  .course-table th, .score-table th {
+    background: var(--xmas-green);
+    color: var(--text-inverse);
+    padding: 0.5rem 0.3rem;
+    font-size: 0.63rem; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .score-table th { position: sticky; top: 0; z-index: 2; padding: 0.4rem 0.25rem; white-space: nowrap; }
+  .score-table th.th-total { background: var(--xmas-deep); }
+
+  .course-table td, .score-table td {
+    padding: 0.25rem; text-align: center;
+    border-bottom: 1px solid var(--xmas-border); background: var(--xmas-card);
+  }
+  .course-table .row-label {
+    background: linear-gradient(90deg, var(--xmas-green), var(--xmas-green-mid));
+    color: var(--text-inverse); font-weight: 700; font-size: 0.68rem;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    padding: 0.4rem 0.5rem; text-align: left; white-space: nowrap;
+  }
+  .course-table input, .score-table input {
+    width: 44px; text-align: center; padding: 0.35rem;
+    font-size: 0.8rem; border-radius: 5px;
+  }
+  .score-table input { width: 34px; padding: 0.28rem; font-size: 0.78rem; }
+  .course-table .total-cell {
+    background: var(--xmas-snow); font-weight: 700; color: var(--xmas-green);
+  }
+
+  .score-table .team-name-cell {
+    text-align: left; padding-left: 0.5rem; font-weight: 600;
+    color: var(--xmas-green); white-space: nowrap;
+    position: sticky; left: 0; background: var(--xmas-card); z-index: 1;
+    min-width: 90px; font-size: 0.76rem;
+  }
+  .score-table .par-row td {
+    background: var(--xmas-snow); color: var(--xmas-green);
+    font-weight: 700; font-size: 0.7rem;
+  }
+  .score-table .cell-total {
+    font-weight: 700; color: var(--xmas-green);
+    background: var(--xmas-snow); font-size: 0.82rem;
+  }
+  .vs-par { font-weight: 700; }
+  .vs-par.under { color: #1b8a2a; }
+  .vs-par.over { color: var(--xmas-red); }
+  .vs-par.even { color: var(--text-secondary); }
+
+  /* ── Leaderboard ── */
+  .leaderboard { list-style: none; }
+  .lb-item {
+    display: flex; align-items: center;
+    padding: 0.75rem 0.85rem; border-radius: var(--radius);
+    margin-bottom: 0.4rem; background: var(--xmas-snow);
+    border: 1px solid var(--xmas-border); transition: all 0.15s;
+  }
+  .lb-item:hover { border-color: var(--xmas-green-light); }
+  .lb-item.first {
+    background: linear-gradient(135deg, var(--xmas-green), var(--xmas-green-mid));
+    color: var(--text-inverse); border-color: transparent;
+    box-shadow: 0 4px 16px rgba(45,90,39,0.2);
+  }
+  .lb-item.first .lb-pos { background: var(--xmas-gold); color: var(--xmas-deep); }
+  .lb-item.first .lb-name small { color: var(--xmas-green-light); }
+  .lb-item.first .lb-gross { color: rgba(255,255,255,0.65); }
+  .lb-pos {
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--xmas-red); color: white;
+    border-radius: 50%; font-size: 0.72rem; font-weight: 700;
+    margin-right: 0.75rem; flex-shrink: 0;
+  }
+  .lb-name { flex: 1; font-weight: 600; font-size: 0.9rem; }
+  .lb-name small { font-weight: 400; color: var(--text-secondary); font-size: 0.76rem; }
+  .lb-scores { display: flex; gap: 0.75rem; align-items: baseline; margin-left: 0.5rem; text-align: right; }
+  .lb-gross { font-size: 0.76rem; color: var(--text-secondary); }
+  .lb-netto { font-weight: 700; font-size: 1rem; }
+  .lb-diff { font-size: 0.76rem; font-weight: 600; min-width: 40px; text-align: right; }
+
+  /* ── Info / empty ── */
+  .info-box {
+    padding: 0.6rem 0.8rem; font-size: 0.82rem; color: var(--xmas-green);
+    background: var(--xmas-snow); border-radius: var(--radius);
+    margin-bottom: 0.75rem; border: 1px solid var(--xmas-border);
+    border-left: 4px solid var(--xmas-gold);
+  }
+  .empty-state {
+    text-align: center; padding: 2.5rem 1rem;
+    color: var(--text-secondary); font-size: 0.86rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.4rem; letter-spacing: 2px; }
+    .header-deco { font-size: 1rem; letter-spacing: 4px; }
+    nav button { font-size: 0.62rem; padding: 0.65rem 0.3rem; }
+    .input-row { flex-direction: column; gap: 0.5rem; }
+    .teams-grid { grid-template-columns: 1fr; }
+    .container { padding: 1rem 0.75rem 2rem; }
+    .card { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Snowfall -->
+<div class="snowfall" id="snowfall"></div>
+
+<header>
+  <div class="header-deco">🎄 ⛳ 🎄</div>
+  <h1>SVIT Christmas Tournament</h1>
+  <div class="subtitle">Golf Scramble <span>·</span> God Jul <span>·</span> 2026</div>
+</header>
+
+<nav id="mainNav">
+  <button class="active" data-section="players">Spelare</button>
+  <button data-section="teams">Lag</button>
+  <button data-section="course">Bana</button>
+  <button data-section="scoring">Score</button>
+  <button data-section="leaderboard">Resultat</button>
+</nav>
+
+<div class="container">
+
+  <div id="players" class="section active">
+    <div class="card">
+      <h2><span class="h2-accent">🎅</span> Lägg till spelare</h2>
+      <div class="input-row">
+        <div style="flex:3">
+          <label>Spelarnamn</label>
+          <input type="text" id="playerName" placeholder="Ange namn…" onkeydown="if(event.key==='Enter')addPlayer()">
+        </div>
+        <div style="flex:0 0 auto">
+          <button class="btn btn-primary" onclick="addPlayer()">+ Lägg till</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2><span class="h2-accent">⛳</span> Handicap</h2>
+      <div class="toggle-row">
+        <input type="checkbox" id="sameHcpToggle" onchange="toggleSameHcp()">
+        <label for="sameHcpToggle">Samma handicap för alla</label>
+      </div>
+      <div id="sameHcpRow" class="input-row" style="display:none;margin-bottom:0">
+        <div>
+          <label>Handicap (alla spelare)</label>
+          <input type="number" id="sameHcpInput" min="0" max="54" step="0.1" placeholder="t.ex. 18" onchange="applySameHcp()">
+        </div>
+        <div style="flex:0 0 auto">
+          <button class="btn btn-secondary" onclick="applySameHcp()">Verkställ</button>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Spelare <span style="font-weight:400;color:var(--text-secondary)">(<span id="playerCount">0</span>)</span></h2>
+      <ul class="player-list" id="playerList"></ul>
+      <div class="empty-state" id="noPlayers">Inga spelare tillagda ännu</div>
+    </div>
+  </div>
+
+  <div id="teams" class="section">
+    <div class="card">
+      <h2><span class="h2-accent">🎁</span> Scramble-inställningar</h2>
+      <div class="input-row">
+        <div>
+          <label>Spelare per lag</label>
+          <select id="teamSize">
+            <option value="2">2 spelare</option>
+            <option value="3">3 spelare</option>
+            <option value="4" selected>4 spelare</option>
+            <option value="5">5 spelare</option>
+            <option value="6">6 spelare</option>
+          </select>
+        </div>
+      </div>
+      <div class="info-box" id="teamInfo">0 spelare → 0 lag</div>
+      <div class="actions">
+        <button class="btn btn-accent" onclick="randomizeTeams()">🎲 Slumpa lag</button>
+        <button class="btn btn-secondary" onclick="clearTeams()">Rensa</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2><span class="h2-accent">🎄</span> Lag</h2>
+      <div class="teams-grid" id="teamsGrid"></div>
+      <div class="empty-state" id="noTeams">Tryck "Slumpa lag" för att lotta lag</div>
+    </div>
+  </div>
+
+  <div id="course" class="section">
+    <div class="card">
+      <h2><span class="h2-accent">⛳</span> Banuppställning</h2>
+      <div class="input-row">
+        <div>
+          <label>Banans namn</label>
+          <input type="text" id="courseName" placeholder="t.ex. Visby GK">
+        </div>
+        <div>
+          <label>Antal hål</label>
+          <select id="numHoles" onchange="generateCourseTable()">
+            <option value="9">9 hål</option>
+            <option value="18" selected>18 hål</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Hål-information</h2>
+      <div class="table-wrap">
+        <table class="course-table" id="courseTable"></table>
+      </div>
+      <div class="actions" style="margin-top:0.75rem">
+        <button class="btn btn-primary" onclick="saveCourse()">Spara bana</button>
+        <button class="btn btn-secondary" onclick="presetPar()">Standard par (72 / 36)</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="scoring" class="section">
+    <div class="card">
+      <h2><span class="h2-accent">🎯</span> Resultatinmatning</h2>
+      <div id="scoringContent">
+        <div class="empty-state">Skapa lag och spara bana först</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="leaderboard" class="section">
+    <div class="card">
+      <h2><span class="h2-accent">🏆</span> Leaderboard</h2>
+      <div id="leaderboardContent">
+        <div class="empty-state">Mata in scores för att se leaderboard</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ── Snowfall ── */
+(function(){
+  const sf = document.getElementById('snowfall');
+  for(let i=0;i<35;i++){
+    const s = document.createElement('div');
+    s.className='snow';
+    const size = Math.random()*4+2;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.opacity = Math.random()*0.5+0.3;
+    s.style.animationDuration = Math.random()*6+6+'s';
+    s.style.animationDelay = Math.random()*8+'s';
+    sf.appendChild(s);
+  }
+})();
+
+const S = {
+  players: [],
+  teams: [],
+  course: { name:'', holes:18, pars:[], indexes:[] },
+  scores: {},
+  courseSaved: false
+};
+
+document.getElementById('mainNav').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  showSection(btn.dataset.section);
+});
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('#mainNav button').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelector('#mainNav button[data-section="'+id+'"]').classList.add('active');
+  if (id==='teams') updateTeamInfo();
+  if (id==='scoring') renderScoring();
+  if (id==='leaderboard') renderLeaderboard();
+}
+
+function addPlayer() {
+  const inp = document.getElementById('playerName');
+  const name = inp.value.trim();
+  if (!name) return;
+  const hcp = document.getElementById('sameHcpToggle').checked
+    ? parseFloat(document.getElementById('sameHcpInput').value) || 0 : 0;
+  S.players.push({ name, hcp });
+  inp.value = ''; inp.focus();
+  renderPlayers();
+}
+function removePlayer(i) { S.players.splice(i,1); renderPlayers(); }
+function updatePlayerHcp(i,v) { S.players[i].hcp = parseFloat(v)||0; }
+function renderPlayers() {
+  document.getElementById('playerCount').textContent = S.players.length;
+  const list = document.getElementById('playerList');
+  const empty = document.getElementById('noPlayers');
+  if (!S.players.length) { list.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display='none';
+  const same = document.getElementById('sameHcpToggle').checked;
+  list.innerHTML = S.players.map((p,i) =>
+    '<li class="player-item">'+
+      '<span class="player-num">'+(i+1)+'</span>'+
+      '<span class="player-name">'+esc(p.name)+'</span>'+
+      (same
+        ? '<span style="font-size:0.75rem;color:var(--text-secondary)">HCP '+p.hcp.toFixed(1)+'</span>'
+        : '<input type="number" min="0" max="54" step="0.1" value="'+(p.hcp||'')+'" placeholder="HCP" style="width:62px;font-size:0.76rem;text-align:center" onchange="updatePlayerHcp('+i+',this.value)">')+
+      '<button class="btn btn-danger btn-sm" onclick="removePlayer('+i+')">✕</button>'+
+    '</li>'
+  ).join('');
+}
+
+function toggleSameHcp() {
+  const on = document.getElementById('sameHcpToggle').checked;
+  document.getElementById('sameHcpRow').style.display = on?'flex':'none';
+  if(on) applySameHcp();
+  renderPlayers();
+}
+function applySameHcp() {
+  const v = parseFloat(document.getElementById('sameHcpInput').value)||0;
+  S.players.forEach(p=>p.hcp=v);
+  renderPlayers();
+  toast('HCP '+v.toFixed(1)+' för alla 🎄');
+}
+
+function updateTeamInfo() {
+  const size = parseInt(document.getElementById('teamSize').value);
+  const n = S.players.length;
+  const full = Math.floor(n/size);
+  const rem = n%size;
+  let t = n+' spelare → '+full+' lag';
+  if(rem) t+=' ('+rem+' extra fördelas)';
+  document.getElementById('teamInfo').textContent = t;
+}
+function randomizeTeams() {
+  if(S.players.length<2){toast('Lägg till minst 2 spelare');return;}
+  const size = parseInt(document.getElementById('teamSize').value);
+  const idxs = S.players.map((_,i)=>i).sort(()=>Math.random()-0.5);
+  const nt = Math.max(1,Math.floor(idxs.length/size));
+  const teams = Array.from({length:nt},()=>[]);
+  idxs.forEach((x,i)=>teams[i%nt].push(x));
+  S.teams=teams; S.scores={};
+  renderTeams();
+}
+function clearTeams(){S.teams=[];S.scores={};renderTeams();}
+function getTeamHcp(t){return Math.min(...t.map(i=>S.players[i].hcp));}
+function renderTeams() {
+  const grid = document.getElementById('teamsGrid');
+  const empty = document.getElementById('noTeams');
+  if(!S.teams.length){grid.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  grid.innerHTML = S.teams.map((t,i) => {
+    const thcp=getTeamHcp(t);
+    return '<div class="team-card"><h4>Lag '+(i+1)+'</h4>'+
+      '<div class="team-hcp">Lag-HCP: '+thcp.toFixed(1)+'</div>'+
+      '<ul>'+t.map(pi=>'<li>'+esc(S.players[pi].name)+' <span style="color:var(--text-secondary);font-size:0.75rem">('+S.players[pi].hcp.toFixed(1)+')</span></li>').join('')+'</ul></div>';
+  }).join('');
+}
+
+function generateCourseTable() {
+  const n=parseInt(document.getElementById('numHoles').value);
+  S.course.holes=n;
+  const tbl=document.getElementById('courseTable');
+  let h='<thead><tr><th></th>';
+  for(let i=1;i<=n;i++) h+='<th>'+i+'</th>';
+  h+='<th>Tot</th></tr></thead><tbody>';
+  h+='<tr><td class="row-label">Par</td>';
+  for(let i=0;i<n;i++){const v=S.course.pars[i]||'';h+='<td><input type="number" min="3" max="6" value="'+v+'" onchange="updCourse(\'pars\','+i+',this.value)"></td>';}
+  h+='<td class="total-cell" id="totalPar">–</td></tr>';
+  h+='<tr><td class="row-label">Index</td>';
+  for(let i=0;i<n;i++){const v=S.course.indexes[i]||'';h+='<td><input type="number" min="1" max="'+n+'" value="'+v+'" onchange="updCourse(\'indexes\','+i+',this.value)"></td>';}
+  h+='<td class="total-cell">–</td></tr></tbody>';
+  tbl.innerHTML=h;calcTotalPar();
+}
+function updCourse(f,i,v){S.course[f][i]=parseInt(v)||0;if(f==='pars')calcTotalPar();}
+function calcTotalPar(){const t=S.course.pars.reduce((s,v)=>s+(v||0),0);const el=document.getElementById('totalPar');if(el)el.textContent=t||'–';}
+function presetPar(){
+  const n=S.course.holes;const p9=[4,4,3,5,4,3,4,5,4],x9=[7,3,9,1,5,8,6,2,4];
+  for(let i=0;i<n;i++){S.course.pars[i]=p9[i%9];S.course.indexes[i]=n===18?(i<9?x9[i]*2-1:x9[i%9]*2):x9[i];}
+  generateCourseTable();
+}
+function saveCourse(){
+  S.course.name=document.getElementById('courseName').value.trim();
+  for(let i=0;i<S.course.holes;i++)if(!S.course.pars[i]){toast('Fyll i par för alla hål');return;}
+  S.courseSaved=true;toast('Banan sparad ✓');
+}
+
+function hcpStrokes(thcp,holeIdx,numH){
+  const full=Math.floor(thcp);if(full<=0||!holeIdx)return 0;
+  return Math.floor(full/numH)+(holeIdx<=full%numH?1:0);
+}
+
+function renderScoring(){
+  const el=document.getElementById('scoringContent');
+  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Skapa lag och spara bana först</div>';return;}
+  const n=S.course.holes;const totalPar=S.course.pars.reduce((s,v)=>s+(v||0),0);
+  let h='<div class="table-wrap"><table class="score-table"><thead><tr>';
+  h+='<th style="text-align:left;min-width:90px">Lag</th>';
+  for(let i=1;i<=n;i++) h+='<th>'+i+'</th>';
+  h+='<th class="th-total">Brutto</th><th class="th-total">Netto</th><th class="th-total">+/−</th></tr></thead><tbody>';
+  h+='<tr class="par-row"><td style="text-align:left;padding-left:0.5rem;font-size:0.68rem">PAR</td>';
+  for(let i=0;i<n;i++) h+='<td>'+(S.course.pars[i]||'–')+'</td>';
+  h+='<td>'+totalPar+'</td><td></td><td></td></tr>';
+
+  S.teams.forEach((t,ti)=>{
+    if(!S.scores[ti])S.scores[ti]=new Array(n).fill('');
+    const thcp=getTeamHcp(t);
+    h+='<tr><td class="team-name-cell">Lag '+(ti+1)+'</td>';
+    for(let hi=0;hi<n;hi++){const v=S.scores[ti][hi];h+='<td><input type="number" min="1" max="15" value="'+(v===''?'':v)+'" onchange="updScore('+ti+','+hi+',this.value)"></td>';}
+    const gross=S.scores[ti].reduce((s,v)=>s+(parseInt(v)||0),0);
+    const played=S.scores[ti].filter(v=>v!=='').length;
+    let netto=0;
+    for(let hi=0;hi<n;hi++){const sv=parseInt(S.scores[ti][hi]);if(isNaN(sv))continue;netto+=Math.max(1,sv-hcpStrokes(thcp,S.course.indexes[hi],n));}
+    const diff=netto-totalPar;let diffStr='',cls='even';
+    if(played>0){diffStr=diff===0?'E':(diff>0?'+'+diff:''+diff);cls=diff<0?'under':(diff>0?'over':'even');}
+    h+='<td class="cell-total">'+(played?gross:'–')+'</td>';
+    h+='<td class="cell-total">'+(played?netto:'–')+'</td>';
+    h+='<td class="cell-total vs-par '+cls+'">'+diffStr+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  h+='<div class="actions" style="margin-top:0.75rem"><button class="btn btn-gold" onclick="showSection(\'leaderboard\')">🏆 Visa Leaderboard</button></div>';
+  el.innerHTML=h;
+}
+function updScore(ti,hi,v){S.scores[ti][hi]=v===''?'':parseInt(v);renderScoring();}
+
+function renderLeaderboard(){
+  const el=document.getElementById('leaderboardContent');
+  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Mata in scores för att se leaderboard</div>';return;}
+  const n=S.course.holes;const totalPar=S.course.pars.reduce((s,v)=>s+(v||0),0);
+  const results=S.teams.map((t,ti)=>{
+    const sc=S.scores[ti]||[];const played=sc.filter(v=>v!==''&&v!==undefined).length;
+    const gross=sc.reduce((s,v)=>s+(parseInt(v)||0),0);const thcp=getTeamHcp(t);
+    let netto=0;for(let hi=0;hi<n;hi++){const sv=parseInt(sc[hi]);if(isNaN(sv))continue;netto+=Math.max(1,sv-hcpStrokes(thcp,S.course.indexes[hi],n));}
+    return{idx:ti,name:'Lag '+(ti+1),members:t.map(i=>S.players[i].name),gross,netto,played,diff:netto-totalPar,hcp:thcp};
+  }).filter(r=>r.played>0).sort((a,b)=>a.netto-b.netto);
+  if(!results.length){el.innerHTML='<div class="empty-state">Mata in scores för att se leaderboard</div>';return;}
+  const cn=S.course.name||'Okänd bana';
+  let h='<div class="info-box">🎄 '+esc(cn)+' · '+S.course.holes+' hål · Par '+totalPar+'</div>';
+  h+='<ul class="leaderboard">';
+  results.forEach((r,pos)=>{
+    const diffStr=r.diff===0?'E':(r.diff>0?'+'+r.diff:''+r.diff);
+    const cls=r.diff<0?'under':(r.diff>0?'over':'even');
+    h+='<li class="lb-item'+(pos===0?' first':'')+'">';
+    h+='<span class="lb-pos">'+(pos===0?'🌟':(pos+1))+'</span>';
+    h+='<span class="lb-name">'+esc(r.name)+'<br><small>'+r.members.map(esc).join(', ')+' · HCP '+r.hcp.toFixed(1)+'</small></span>';
+    h+='<span class="lb-scores">';
+    h+='<span class="lb-gross">Brutto '+r.gross+'</span>';
+    h+='<span class="lb-netto">'+r.netto+'</span>';
+    h+='<span class="lb-diff vs-par '+cls+'">'+diffStr+'</span>';
+    h+='</span></li>';
+  });
+  h+='</ul>';
+  el.innerHTML=h;
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function toast(msg){
+  const d=document.createElement('div');d.textContent=msg;
+  Object.assign(d.style,{
+    position:'fixed',top:'1rem',left:'50%',transform:'translateX(-50%)',
+    background:'var(--xmas-green)',color:'var(--text-inverse)',
+    padding:'0.55rem 1.4rem',borderRadius:'var(--radius)',fontFamily:'Inter,sans-serif',
+    fontSize:'0.84rem',fontWeight:'500',zIndex:'9998',boxShadow:'var(--shadow-lg)',
+    letterSpacing:'0.3px',border:'1px solid var(--xmas-gold)'
+  });
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2200);
+}
+
+generateCourseTable();
+</script>
+</body>
+</html>
