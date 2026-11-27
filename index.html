@@ -4,386 +4,385 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SVIT Christmas Tournament</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --xmas-deep: #1a2e1a;
-    --xmas-green: #2d5a27;
-    --xmas-green-mid: #3a7233;
-    --xmas-green-light: #4a8a42;
-    --xmas-pine: #1e3a1e;
-    --xmas-red: #b22234;
-    --xmas-red-dark: #8b1a2b;
-    --xmas-red-light: #d4344a;
-    --xmas-gold: #d4a843;
-    --xmas-gold-light: #e8c86a;
-    --xmas-gold-dim: #a88a35;
-    --xmas-cream: #faf8f0;
-    --xmas-snow: #f0ede4;
-    --xmas-card: #ffffff;
-    --xmas-border: #e0ddd2;
+    --fg: #191a17;
+    --fg-dim: #62635c;
+    --fg-inv: #faf7ee;
+    --bg: #f5f2e8;
+    --bg-alt: #eae6d9;
+    --surface: #ffffff;
+    --border: #d9d5c8;
 
-    --text: #1a1a18;
-    --text-secondary: #6b6960;
-    --text-inverse: #faf8f0;
-
-    --radius: 10px;
-    --radius-lg: 14px;
-    --shadow: 0 1px 4px rgba(0,0,0,0.05), 0 2px 8px rgba(0,0,0,0.04);
-    --shadow-lg: 0 4px 20px rgba(0,0,0,0.1);
+    --pine: #1b3220;
+    --green: #2a5523;
+    --green-mid: #387030;
+    --green-soft: #4a8a3f;
+    --red: #a82535;
+    --red-dark: #7e1c29;
+    --gold: #c99b30;
+    --gold-light: #ddb44e;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background: var(--xmas-cream);
-    color: var(--text);
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
-    position: relative;
     overflow-x: hidden;
   }
 
   /* ── Snowfall ── */
   .snowfall {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999; overflow: hidden;
   }
   .snow {
-    position: absolute;
-    top: -8px;
-    border-radius: 50%;
-    background: white;
-    opacity: 0.7;
+    position: absolute; top: -8px;
+    border-radius: 50%; background: white; opacity: 0.65;
     animation: fall linear infinite;
   }
-  @keyframes fall {
-    to { transform: translateY(calc(100vh + 10px)) rotate(360deg); }
-  }
+  @keyframes fall { to { transform: translateY(calc(100vh + 10px)) rotate(360deg); } }
 
   /* ── Header ── */
   header {
-    background: linear-gradient(160deg, var(--xmas-deep) 0%, var(--xmas-green) 40%, var(--xmas-pine) 100%);
-    padding: 2.2rem 1.5rem 2rem;
-    text-align: center;
+    background: var(--pine);
+    padding: 2.4rem 1.8rem 1.8rem;
     position: relative;
     overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(212,168,67,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 50%, rgba(178,34,52,0.06) 0%, transparent 60%);
-    pointer-events: none;
   }
   header::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--xmas-red), var(--xmas-gold), var(--xmas-red), var(--xmas-gold), var(--xmas-red));
+    height: 3px;
+    background: var(--gold);
   }
-  .header-deco {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 6px;
-    opacity: 0.9;
+  .header-inner { max-width: 820px; margin: 0 auto; }
+  .header-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--green-soft);
+    margin-bottom: 0.6rem;
   }
   header h1 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 800;
-    font-size: 2rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--xmas-gold-light);
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    position: relative;
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.85rem;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    line-height: 1.15;
   }
-  header .subtitle {
-    font-size: 0.7rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--xmas-green-light);
-    margin-top: 0.5rem;
-    font-weight: 600;
+  header .sub {
+    font-size: 0.78rem;
+    color: var(--green-soft);
+    margin-top: 0.35rem;
+    letter-spacing: 0.3px;
   }
-  header .subtitle span { color: var(--xmas-gold); }
+  header .sub b { color: var(--gold); font-weight: 600; }
 
   /* ── Nav ── */
   nav {
     display: flex;
-    background: var(--xmas-deep);
+    background: var(--pine);
     overflow-x: auto;
     scrollbar-width: none;
-    border-bottom: 1px solid rgba(212,168,67,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
   }
   nav::-webkit-scrollbar { display: none; }
   nav button {
     flex: 1; min-width: 0;
-    padding: 0.75rem 0.4rem;
+    padding: 0.72rem 0.5rem;
     background: none; border: none;
-    color: var(--xmas-green-light);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
+    color: rgba(255,255,255,0.45);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
     border-bottom: 2px solid transparent;
-    transition: all 0.15s;
+    transition: color 0.15s;
     white-space: nowrap;
   }
-  nav button:hover { color: var(--xmas-gold-light); }
+  nav button:hover { color: rgba(255,255,255,0.75); }
   nav button.active {
-    color: var(--xmas-gold-light);
-    border-bottom-color: var(--xmas-gold);
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
   }
 
   /* ── Layout ── */
-  .container { max-width: 860px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .container { max-width: 820px; margin: 0 auto; padding: 1.4rem 1rem 3rem; }
   .section { display: none; }
   .section.active { display: block; }
 
-  /* ── Cards ── */
+  /* ── Cards — varied treatments ── */
   .card {
-    background: var(--xmas-card);
-    border: 1px solid var(--xmas-border);
-    border-radius: var(--radius-lg);
-    padding: 1.4rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow);
-    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.3rem 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+  .card-flat {
+    background: transparent;
+    border: none;
+    padding: 0.4rem 0;
+    margin-bottom: 0.85rem;
+  }
+  .card-accent {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 2px 8px 8px 2px;
+    padding: 1.3rem 1.25rem;
+    margin-bottom: 0.85rem;
   }
 
   h2 {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--xmas-green);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--pine);
+    margin-bottom: 0.85rem;
+    letter-spacing: 0.2px;
   }
-  h2 .h2-accent { color: var(--xmas-red); }
+  h2 small {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.78rem;
+    color: var(--fg-dim);
+    margin-left: 0.35rem;
+  }
 
   /* ── Forms ── */
   label {
     display: block;
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 600;
-    color: var(--text-secondary);
-    margin-bottom: 0.3rem;
-    letter-spacing: 0.3px;
+    color: var(--fg-dim);
+    margin-bottom: 0.25rem;
   }
   input, select {
     width: 100%;
-    padding: 0.55rem 0.75rem;
-    border: 1px solid var(--xmas-border);
-    border-radius: var(--radius);
-    font-family: 'Inter', sans-serif;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.88rem;
-    background: var(--xmas-snow);
-    color: var(--text);
-    transition: border-color 0.15s, box-shadow 0.15s;
+    background: var(--bg);
+    color: var(--fg);
+    transition: border-color 0.15s;
   }
   input:focus, select:focus {
     outline: none;
-    border-color: var(--xmas-green-mid);
-    box-shadow: 0 0 0 3px rgba(45,90,39,0.1);
+    border-color: var(--green-mid);
+    box-shadow: 0 0 0 2px rgba(42,85,35,0.1);
   }
   input[type="number"] { -moz-appearance: textfield; }
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
-  .input-row { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: flex-end; }
+  .input-row { display: flex; gap: 0.7rem; margin-bottom: 0.7rem; align-items: flex-end; }
   .input-row > div { flex: 1; }
 
   /* ── Buttons ── */
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
-    padding: 0.55rem 1.1rem; border: none; border-radius: var(--radius);
-    font-family: 'Inter', sans-serif; font-size: 0.76rem; font-weight: 600;
-    letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s;
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.3rem;
+    padding: 0.5rem 1rem; border: none; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
   }
-  .btn-primary { background: var(--xmas-green); color: var(--text-inverse); }
-  .btn-primary:hover { background: var(--xmas-green-mid); }
-  .btn-secondary { background: var(--xmas-snow); color: var(--xmas-green); border: 1px solid var(--xmas-border); }
-  .btn-secondary:hover { background: var(--xmas-border); }
-  .btn-accent { background: var(--xmas-red); color: white; }
-  .btn-accent:hover { background: var(--xmas-red-dark); }
-  .btn-gold { background: var(--xmas-gold); color: var(--xmas-deep); }
-  .btn-gold:hover { background: var(--xmas-gold-dim); }
-  .btn-danger { background: #c0392b; color: white; }
-  .btn-danger:hover { background: #962d22; }
-  .btn-sm { padding: 0.25rem 0.55rem; font-size: 0.68rem; }
-  .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+  .btn-primary { background: var(--green); color: var(--fg-inv); }
+  .btn-primary:hover { background: var(--green-mid); }
+  .btn-secondary { background: var(--bg-alt); color: var(--fg); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-accent { background: var(--red); color: white; }
+  .btn-accent:hover { background: var(--red-dark); }
+  .btn-gold { background: var(--gold); color: var(--pine); }
+  .btn-gold:hover { background: var(--gold-light); color: var(--pine); }
+  .btn-danger { background: #b33; color: white; }
+  .btn-danger:hover { background: #922; }
+  .btn-sm { padding: 0.2rem 0.5rem; font-size: 0.69rem; }
+  .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.7rem; }
 
   /* ── Toggle ── */
   .toggle-row {
-    display: flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 0.75rem; padding: 0.6rem 0.75rem;
-    background: var(--xmas-snow); border-radius: var(--radius);
-    border: 1px solid var(--xmas-border);
+    display: flex; align-items: center; gap: 0.7rem;
+    margin-bottom: 0.7rem; padding: 0.55rem 0.7rem;
+    background: var(--bg); border-radius: 6px;
+    border: 1px solid var(--border);
   }
-  .toggle-row label { margin: 0; flex: 1; font-size: 0.84rem; color: var(--text); font-weight: 500; }
+  .toggle-row label { margin: 0; flex: 1; font-size: 0.84rem; color: var(--fg); font-weight: 500; }
   .toggle-row input[type="checkbox"] {
-    width: 18px; height: 18px; accent-color: var(--xmas-red); cursor: pointer; flex-shrink: 0;
+    width: 17px; height: 17px; accent-color: var(--red); cursor: pointer; flex-shrink: 0;
   }
 
   /* ── Player list ── */
   .player-list { list-style: none; }
   .player-item {
-    display: flex; align-items: center; gap: 0.6rem;
-    padding: 0.55rem 0.7rem; background: var(--xmas-snow);
-    border-radius: var(--radius); margin-bottom: 0.35rem;
-    border: 1px solid transparent; transition: all 0.1s;
+    display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.5rem 0.65rem;
+    border-radius: 6px; margin-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
   }
-  .player-item:hover { border-color: var(--xmas-green-light); background: #eef5ec; }
+  .player-item:last-child { border-bottom: none; }
+  .player-item:hover { background: var(--bg); }
   .player-num {
-    width: 22px; height: 22px;
+    width: 21px; height: 21px;
     display: flex; align-items: center; justify-content: center;
-    background: var(--xmas-red); color: white;
+    background: var(--pine); color: var(--gold-light);
     border-radius: 50%; font-size: 0.63rem; font-weight: 700; flex-shrink: 0;
   }
   .player-name { flex: 1; font-size: 0.88rem; font-weight: 500; }
 
   /* ── Teams ── */
   .teams-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 0.65rem;
   }
   .team-card {
-    background: var(--xmas-snow); border: 1px solid var(--xmas-border);
-    border-radius: var(--radius); padding: 0.75rem;
-    transition: all 0.15s; position: relative; overflow: hidden;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.7rem 0.75rem;
+    position: relative;
   }
-  .team-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--xmas-red), var(--xmas-gold));
-  }
-  .team-card:hover { border-color: var(--xmas-green-light); }
   .team-card h4 {
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; color: var(--xmas-green);
-    margin: 0.2rem 0 0.4rem; padding-bottom: 0.35rem;
-    border-bottom: 1px solid var(--xmas-border);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 0.93rem; font-weight: 600;
+    color: var(--pine);
+    margin-bottom: 0.35rem; padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
   }
-  .team-card .team-hcp { font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 0.3rem; }
+  .team-card .team-hcp { font-size: 0.69rem; color: var(--fg-dim); margin-bottom: 0.25rem; }
   .team-card ul { list-style: none; }
-  .team-card ul li { padding: 0.15rem 0; font-size: 0.84rem; }
+  .team-card ul li { padding: 0.12rem 0; font-size: 0.84rem; }
 
   /* ── Tables ── */
   .table-wrap {
     overflow-x: auto; -webkit-overflow-scrolling: touch;
-    border-radius: var(--radius); border: 1px solid var(--xmas-border);
+    border-radius: 6px; border: 1px solid var(--border);
   }
   .course-table, .score-table { width: 100%; border-collapse: collapse; }
   .course-table th, .score-table th {
-    background: var(--xmas-green);
-    color: var(--text-inverse);
-    padding: 0.5rem 0.3rem;
+    background: var(--pine);
+    color: var(--fg-inv);
+    padding: 0.45rem 0.3rem;
     font-size: 0.63rem; font-weight: 700;
     letter-spacing: 0.5px; text-transform: uppercase;
   }
   .score-table th { position: sticky; top: 0; z-index: 2; padding: 0.4rem 0.25rem; white-space: nowrap; }
-  .score-table th.th-total { background: var(--xmas-deep); }
+  .score-table th.th-total { background: #111; }
 
   .course-table td, .score-table td {
     padding: 0.25rem; text-align: center;
-    border-bottom: 1px solid var(--xmas-border); background: var(--xmas-card);
+    border-bottom: 1px solid var(--border); background: var(--surface);
   }
   .course-table .row-label {
-    background: linear-gradient(90deg, var(--xmas-green), var(--xmas-green-mid));
-    color: var(--text-inverse); font-weight: 700; font-size: 0.68rem;
+    background: var(--green);
+    color: var(--fg-inv); font-weight: 700; font-size: 0.69rem;
     letter-spacing: 0.5px; text-transform: uppercase;
     padding: 0.4rem 0.5rem; text-align: left; white-space: nowrap;
   }
   .course-table input, .score-table input {
-    width: 44px; text-align: center; padding: 0.35rem;
-    font-size: 0.8rem; border-radius: 5px;
+    width: 44px; text-align: center; padding: 0.32rem;
+    font-size: 0.81rem; border-radius: 4px;
   }
-  .score-table input { width: 34px; padding: 0.28rem; font-size: 0.78rem; }
+  .score-table input { width: 34px; padding: 0.26rem; font-size: 0.78rem; }
   .course-table .total-cell {
-    background: var(--xmas-snow); font-weight: 700; color: var(--xmas-green);
+    background: var(--bg); font-weight: 700; color: var(--green);
   }
 
   .score-table .team-name-cell {
     text-align: left; padding-left: 0.5rem; font-weight: 600;
-    color: var(--xmas-green); white-space: nowrap;
-    position: sticky; left: 0; background: var(--xmas-card); z-index: 1;
-    min-width: 90px; font-size: 0.76rem;
+    color: var(--pine); white-space: nowrap;
+    position: sticky; left: 0; background: var(--surface); z-index: 1;
+    min-width: 90px; font-size: 0.78rem;
   }
   .score-table .par-row td {
-    background: var(--xmas-snow); color: var(--xmas-green);
-    font-weight: 700; font-size: 0.7rem;
+    background: var(--bg); color: var(--green);
+    font-weight: 700; font-size: 0.69rem;
   }
   .score-table .cell-total {
-    font-weight: 700; color: var(--xmas-green);
-    background: var(--xmas-snow); font-size: 0.82rem;
+    font-weight: 700; color: var(--pine);
+    background: var(--bg); font-size: 0.84rem;
   }
   .vs-par { font-weight: 700; }
-  .vs-par.under { color: #1b8a2a; }
-  .vs-par.over { color: var(--xmas-red); }
-  .vs-par.even { color: var(--text-secondary); }
+  .vs-par.under { color: #1a7a28; }
+  .vs-par.over { color: var(--red); }
+  .vs-par.even { color: var(--fg-dim); }
 
   /* ── Leaderboard ── */
   .leaderboard { list-style: none; }
   .lb-item {
     display: flex; align-items: center;
-    padding: 0.75rem 0.85rem; border-radius: var(--radius);
-    margin-bottom: 0.4rem; background: var(--xmas-snow);
-    border: 1px solid var(--xmas-border); transition: all 0.15s;
+    padding: 0.7rem 0.8rem; border-radius: 6px;
+    margin-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
   }
-  .lb-item:hover { border-color: var(--xmas-green-light); }
+  .lb-item:last-child { border-bottom: none; }
+  .lb-item:hover { background: var(--bg); }
   .lb-item.first {
-    background: linear-gradient(135deg, var(--xmas-green), var(--xmas-green-mid));
-    color: var(--text-inverse); border-color: transparent;
-    box-shadow: 0 4px 16px rgba(45,90,39,0.2);
+    background: var(--pine);
+    color: var(--fg-inv);
+    border-bottom-color: transparent;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
   }
-  .lb-item.first .lb-pos { background: var(--xmas-gold); color: var(--xmas-deep); }
-  .lb-item.first .lb-name small { color: var(--xmas-green-light); }
-  .lb-item.first .lb-gross { color: rgba(255,255,255,0.65); }
+  .lb-item.first .lb-pos { background: var(--gold); color: var(--pine); }
+  .lb-item.first .lb-name small { color: rgba(255,255,255,0.55); }
+  .lb-item.first .lb-gross { color: rgba(255,255,255,0.5); }
   .lb-pos {
-    width: 28px; height: 28px;
+    width: 26px; height: 26px;
     display: flex; align-items: center; justify-content: center;
-    background: var(--xmas-red); color: white;
+    background: var(--green); color: white;
     border-radius: 50%; font-size: 0.72rem; font-weight: 700;
-    margin-right: 0.75rem; flex-shrink: 0;
+    margin-right: 0.7rem; flex-shrink: 0;
   }
   .lb-name { flex: 1; font-weight: 600; font-size: 0.9rem; }
-  .lb-name small { font-weight: 400; color: var(--text-secondary); font-size: 0.76rem; }
-  .lb-scores { display: flex; gap: 0.75rem; align-items: baseline; margin-left: 0.5rem; text-align: right; }
-  .lb-gross { font-size: 0.76rem; color: var(--text-secondary); }
-  .lb-netto { font-weight: 700; font-size: 1rem; }
-  .lb-diff { font-size: 0.76rem; font-weight: 600; min-width: 40px; text-align: right; }
+  .lb-name small { font-weight: 400; color: var(--fg-dim); font-size: 0.74rem; }
+  .lb-scores { display: flex; gap: 0.65rem; align-items: baseline; margin-left: 0.5rem; text-align: right; }
+  .lb-gross { font-size: 0.74rem; color: var(--fg-dim); }
+  .lb-netto { font-weight: 700; font-size: 1.02rem; }
+  .lb-diff { font-size: 0.74rem; font-weight: 600; min-width: 38px; text-align: right; }
 
   /* ── Info / empty ── */
   .info-box {
-    padding: 0.6rem 0.8rem; font-size: 0.82rem; color: var(--xmas-green);
-    background: var(--xmas-snow); border-radius: var(--radius);
-    margin-bottom: 0.75rem; border: 1px solid var(--xmas-border);
-    border-left: 4px solid var(--xmas-gold);
+    padding: 0.55rem 0.75rem; font-size: 0.81rem; color: var(--pine);
+    background: var(--bg); border-radius: 6px;
+    margin-bottom: 0.65rem;
+    border-left: 3px solid var(--gold);
   }
   .empty-state {
-    text-align: center; padding: 2.5rem 1rem;
-    color: var(--text-secondary); font-size: 0.86rem;
+    text-align: center; padding: 2.2rem 1rem;
+    color: var(--fg-dim); font-size: 0.86rem;
+  }
+
+  /* ── Toast ── */
+  .toast-msg {
+    position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+    background: var(--pine); color: var(--fg-inv);
+    padding: 0.5rem 1.3rem; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.84rem; font-weight: 500;
+    z-index: 9998; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   }
 
   /* ── Responsive ── */
   @media (max-width: 600px) {
-    header h1 { font-size: 1.4rem; letter-spacing: 2px; }
-    .header-deco { font-size: 1rem; letter-spacing: 4px; }
-    nav button { font-size: 0.62rem; padding: 0.65rem 0.3rem; }
-    .input-row { flex-direction: column; gap: 0.5rem; }
+    header { padding: 1.8rem 1.2rem 1.4rem; }
+    header h1 { font-size: 1.4rem; }
+    nav button { font-size: 0.64rem; padding: 0.6rem 0.3rem; }
+    .input-row { flex-direction: column; gap: 0.45rem; }
     .teams-grid { grid-template-columns: 1fr; }
-    .container { padding: 1rem 0.75rem 2rem; }
-    .card { padding: 1rem; }
+    .container { padding: 0.9rem 0.75rem 2rem; }
+    .card, .card-accent { padding: 1rem 0.9rem; }
   }
 </style>
 </head>
@@ -393,9 +392,11 @@
 <div class="snowfall" id="snowfall"></div>
 
 <header>
-  <div class="header-deco">🎄 ⛳ 🎄</div>
-  <h1>SVIT Christmas Tournament</h1>
-  <div class="subtitle">Golf Scramble <span>·</span> God Jul <span>·</span> 2026</div>
+  <div class="header-inner">
+    <div class="header-tag">Golf Scramble &middot; God Jul 2026</div>
+    <h1>SVIT Christmas Tournament</h1>
+    <div class="sub">Registrera spelare, lotta lag och for resultaten <b>live</b></div>
+  </div>
 </header>
 
 <nav id="mainNav">
@@ -410,22 +411,22 @@
 
   <div id="players" class="section active">
     <div class="card">
-      <h2><span class="h2-accent">🎅</span> Lägg till spelare</h2>
+      <h2>Lagg till spelare</h2>
       <div class="input-row">
         <div style="flex:3">
           <label>Spelarnamn</label>
-          <input type="text" id="playerName" placeholder="Ange namn…" onkeydown="if(event.key==='Enter')addPlayer()">
+          <input type="text" id="playerName" placeholder="Ange namn" onkeydown="if(event.key==='Enter')addPlayer()">
         </div>
         <div style="flex:0 0 auto">
-          <button class="btn btn-primary" onclick="addPlayer()">+ Lägg till</button>
+          <button class="btn btn-primary" onclick="addPlayer()">Lagg till</button>
         </div>
       </div>
     </div>
-    <div class="card">
-      <h2><span class="h2-accent">⛳</span> Handicap</h2>
+    <div class="card-accent">
+      <h2>Handicap</h2>
       <div class="toggle-row">
         <input type="checkbox" id="sameHcpToggle" onchange="toggleSameHcp()">
-        <label for="sameHcpToggle">Samma handicap för alla</label>
+        <label for="sameHcpToggle">Samma handicap for alla</label>
       </div>
       <div id="sameHcpRow" class="input-row" style="display:none;margin-bottom:0">
         <div>
@@ -433,20 +434,20 @@
           <input type="number" id="sameHcpInput" min="0" max="54" step="0.1" placeholder="t.ex. 18" onchange="applySameHcp()">
         </div>
         <div style="flex:0 0 auto">
-          <button class="btn btn-secondary" onclick="applySameHcp()">Verkställ</button>
+          <button class="btn btn-secondary" onclick="applySameHcp()">Verkstall</button>
         </div>
       </div>
     </div>
     <div class="card">
-      <h2>Spelare <span style="font-weight:400;color:var(--text-secondary)">(<span id="playerCount">0</span>)</span></h2>
+      <h2>Spelare <small id="playerCount">0</small></h2>
       <ul class="player-list" id="playerList"></ul>
-      <div class="empty-state" id="noPlayers">Inga spelare tillagda ännu</div>
+      <div class="empty-state" id="noPlayers">Inga spelare tillagda annu</div>
     </div>
   </div>
 
   <div id="teams" class="section">
-    <div class="card">
-      <h2><span class="h2-accent">🎁</span> Scramble-inställningar</h2>
+    <div class="card-accent">
+      <h2>Scramble-installningar</h2>
       <div class="input-row">
         <div>
           <label>Spelare per lag</label>
@@ -459,42 +460,42 @@
           </select>
         </div>
       </div>
-      <div class="info-box" id="teamInfo">0 spelare → 0 lag</div>
+      <div class="info-box" id="teamInfo">0 spelare &rarr; 0 lag</div>
       <div class="actions">
-        <button class="btn btn-accent" onclick="randomizeTeams()">🎲 Slumpa lag</button>
+        <button class="btn btn-accent" onclick="randomizeTeams()">Slumpa lag</button>
         <button class="btn btn-secondary" onclick="clearTeams()">Rensa</button>
       </div>
     </div>
     <div class="card">
-      <h2><span class="h2-accent">🎄</span> Lag</h2>
+      <h2>Lag</h2>
       <div class="teams-grid" id="teamsGrid"></div>
-      <div class="empty-state" id="noTeams">Tryck "Slumpa lag" för att lotta lag</div>
+      <div class="empty-state" id="noTeams">Tryck "Slumpa lag" for att lotta lag</div>
     </div>
   </div>
 
   <div id="course" class="section">
     <div class="card">
-      <h2><span class="h2-accent">⛳</span> Banuppställning</h2>
+      <h2>Banuppstallning</h2>
       <div class="input-row">
         <div>
           <label>Banans namn</label>
           <input type="text" id="courseName" placeholder="t.ex. Visby GK">
         </div>
         <div>
-          <label>Antal hål</label>
+          <label>Antal hal</label>
           <select id="numHoles" onchange="generateCourseTable()">
-            <option value="9">9 hål</option>
-            <option value="18" selected>18 hål</option>
+            <option value="9">9 hal</option>
+            <option value="18" selected>18 hal</option>
           </select>
         </div>
       </div>
     </div>
     <div class="card">
-      <h2>Hål-information</h2>
+      <h2>Hal-information</h2>
       <div class="table-wrap">
         <table class="course-table" id="courseTable"></table>
       </div>
-      <div class="actions" style="margin-top:0.75rem">
+      <div class="actions" style="margin-top:0.65rem">
         <button class="btn btn-primary" onclick="saveCourse()">Spara bana</button>
         <button class="btn btn-secondary" onclick="presetPar()">Standard par (72 / 36)</button>
       </div>
@@ -503,18 +504,18 @@
 
   <div id="scoring" class="section">
     <div class="card">
-      <h2><span class="h2-accent">🎯</span> Resultatinmatning</h2>
+      <h2>Resultatinmatning</h2>
       <div id="scoringContent">
-        <div class="empty-state">Skapa lag och spara bana först</div>
+        <div class="empty-state">Skapa lag och spara bana forst</div>
       </div>
     </div>
   </div>
 
   <div id="leaderboard" class="section">
     <div class="card">
-      <h2><span class="h2-accent">🏆</span> Leaderboard</h2>
+      <h2>Leaderboard</h2>
       <div id="leaderboardContent">
-        <div class="empty-state">Mata in scores för att se leaderboard</div>
+        <div class="empty-state">Mata in scores for att se leaderboard</div>
       </div>
     </div>
   </div>
@@ -525,16 +526,16 @@
 /* ── Snowfall ── */
 (function(){
   const sf = document.getElementById('snowfall');
-  for(let i=0;i<35;i++){
+  for(let i=0;i<30;i++){
     const s = document.createElement('div');
     s.className='snow';
-    const size = Math.random()*4+2;
+    const size = Math.random()*3.5+1.5;
     s.style.width = size+'px';
     s.style.height = size+'px';
     s.style.left = Math.random()*100+'%';
-    s.style.opacity = Math.random()*0.5+0.3;
-    s.style.animationDuration = Math.random()*6+6+'s';
-    s.style.animationDelay = Math.random()*8+'s';
+    s.style.opacity = Math.random()*0.4+0.25;
+    s.style.animationDuration = Math.random()*7+7+'s';
+    s.style.animationDelay = Math.random()*10+'s';
     sf.appendChild(s);
   }
 })();
@@ -586,9 +587,9 @@ function renderPlayers() {
       '<span class="player-num">'+(i+1)+'</span>'+
       '<span class="player-name">'+esc(p.name)+'</span>'+
       (same
-        ? '<span style="font-size:0.75rem;color:var(--text-secondary)">HCP '+p.hcp.toFixed(1)+'</span>'
-        : '<input type="number" min="0" max="54" step="0.1" value="'+(p.hcp||'')+'" placeholder="HCP" style="width:62px;font-size:0.76rem;text-align:center" onchange="updatePlayerHcp('+i+',this.value)">')+
-      '<button class="btn btn-danger btn-sm" onclick="removePlayer('+i+')">✕</button>'+
+        ? '<span style="font-size:0.74rem;color:var(--fg-dim)">HCP '+p.hcp.toFixed(1)+'</span>'
+        : '<input type="number" min="0" max="54" step="0.1" value="'+(p.hcp||'')+'" placeholder="HCP" style="width:60px;font-size:0.78rem;text-align:center" onchange="updatePlayerHcp('+i+',this.value)">')+
+      '<button class="btn btn-danger btn-sm" onclick="removePlayer('+i+')">&#x2715;</button>'+
     '</li>'
   ).join('');
 }
@@ -603,7 +604,7 @@ function applySameHcp() {
   const v = parseFloat(document.getElementById('sameHcpInput').value)||0;
   S.players.forEach(p=>p.hcp=v);
   renderPlayers();
-  toast('HCP '+v.toFixed(1)+' för alla 🎄');
+  toast('HCP '+v.toFixed(1)+' satt for alla');
 }
 
 function updateTeamInfo() {
@@ -612,11 +613,11 @@ function updateTeamInfo() {
   const full = Math.floor(n/size);
   const rem = n%size;
   let t = n+' spelare → '+full+' lag';
-  if(rem) t+=' ('+rem+' extra fördelas)';
+  if(rem) t+=' ('+rem+' extra fordelas)';
   document.getElementById('teamInfo').textContent = t;
 }
 function randomizeTeams() {
-  if(S.players.length<2){toast('Lägg till minst 2 spelare');return;}
+  if(S.players.length<2){toast('Lagg till minst 2 spelare');return;}
   const size = parseInt(document.getElementById('teamSize').value);
   const idxs = S.players.map((_,i)=>i).sort(()=>Math.random()-0.5);
   const nt = Math.max(1,Math.floor(idxs.length/size));
@@ -636,7 +637,7 @@ function renderTeams() {
     const thcp=getTeamHcp(t);
     return '<div class="team-card"><h4>Lag '+(i+1)+'</h4>'+
       '<div class="team-hcp">Lag-HCP: '+thcp.toFixed(1)+'</div>'+
-      '<ul>'+t.map(pi=>'<li>'+esc(S.players[pi].name)+' <span style="color:var(--text-secondary);font-size:0.75rem">('+S.players[pi].hcp.toFixed(1)+')</span></li>').join('')+'</ul></div>';
+      '<ul>'+t.map(pi=>'<li>'+esc(S.players[pi].name)+' <span style="color:var(--fg-dim);font-size:0.74rem">('+S.players[pi].hcp.toFixed(1)+')</span></li>').join('')+'</ul></div>';
   }).join('');
 }
 
@@ -649,10 +650,10 @@ function generateCourseTable() {
   h+='<th>Tot</th></tr></thead><tbody>';
   h+='<tr><td class="row-label">Par</td>';
   for(let i=0;i<n;i++){const v=S.course.pars[i]||'';h+='<td><input type="number" min="3" max="6" value="'+v+'" onchange="updCourse(\'pars\','+i+',this.value)"></td>';}
-  h+='<td class="total-cell" id="totalPar">–</td></tr>';
+  h+='<td class="total-cell" id="totalPar">&ndash;</td></tr>';
   h+='<tr><td class="row-label">Index</td>';
   for(let i=0;i<n;i++){const v=S.course.indexes[i]||'';h+='<td><input type="number" min="1" max="'+n+'" value="'+v+'" onchange="updCourse(\'indexes\','+i+',this.value)"></td>';}
-  h+='<td class="total-cell">–</td></tr></tbody>';
+  h+='<td class="total-cell">&ndash;</td></tr></tbody>';
   tbl.innerHTML=h;calcTotalPar();
 }
 function updCourse(f,i,v){S.course[f][i]=parseInt(v)||0;if(f==='pars')calcTotalPar();}
@@ -664,8 +665,8 @@ function presetPar(){
 }
 function saveCourse(){
   S.course.name=document.getElementById('courseName').value.trim();
-  for(let i=0;i<S.course.holes;i++)if(!S.course.pars[i]){toast('Fyll i par för alla hål');return;}
-  S.courseSaved=true;toast('Banan sparad ✓');
+  for(let i=0;i<S.course.holes;i++)if(!S.course.pars[i]){toast('Fyll i par for alla hal');return;}
+  S.courseSaved=true;toast('Banan sparad');
 }
 
 function hcpStrokes(thcp,holeIdx,numH){
@@ -675,13 +676,13 @@ function hcpStrokes(thcp,holeIdx,numH){
 
 function renderScoring(){
   const el=document.getElementById('scoringContent');
-  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Skapa lag och spara bana först</div>';return;}
+  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Skapa lag och spara bana forst</div>';return;}
   const n=S.course.holes;const totalPar=S.course.pars.reduce((s,v)=>s+(v||0),0);
   let h='<div class="table-wrap"><table class="score-table"><thead><tr>';
   h+='<th style="text-align:left;min-width:90px">Lag</th>';
   for(let i=1;i<=n;i++) h+='<th>'+i+'</th>';
   h+='<th class="th-total">Brutto</th><th class="th-total">Netto</th><th class="th-total">+/−</th></tr></thead><tbody>';
-  h+='<tr class="par-row"><td style="text-align:left;padding-left:0.5rem;font-size:0.68rem">PAR</td>';
+  h+='<tr class="par-row"><td style="text-align:left;padding-left:0.5rem;font-size:0.69rem">PAR</td>';
   for(let i=0;i<n;i++) h+='<td>'+(S.course.pars[i]||'–')+'</td>';
   h+='<td>'+totalPar+'</td><td></td><td></td></tr>';
 
@@ -701,14 +702,14 @@ function renderScoring(){
     h+='<td class="cell-total vs-par '+cls+'">'+diffStr+'</td></tr>';
   });
   h+='</tbody></table></div>';
-  h+='<div class="actions" style="margin-top:0.75rem"><button class="btn btn-gold" onclick="showSection(\'leaderboard\')">🏆 Visa Leaderboard</button></div>';
+  h+='<div class="actions" style="margin-top:0.65rem"><button class="btn btn-gold" onclick="showSection(\'leaderboard\')">Visa Leaderboard</button></div>';
   el.innerHTML=h;
 }
 function updScore(ti,hi,v){S.scores[ti][hi]=v===''?'':parseInt(v);renderScoring();}
 
 function renderLeaderboard(){
   const el=document.getElementById('leaderboardContent');
-  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Mata in scores för att se leaderboard</div>';return;}
+  if(!S.teams.length||!S.courseSaved){el.innerHTML='<div class="empty-state">Mata in scores for att se leaderboard</div>';return;}
   const n=S.course.holes;const totalPar=S.course.pars.reduce((s,v)=>s+(v||0),0);
   const results=S.teams.map((t,ti)=>{
     const sc=S.scores[ti]||[];const played=sc.filter(v=>v!==''&&v!==undefined).length;
@@ -716,15 +717,15 @@ function renderLeaderboard(){
     let netto=0;for(let hi=0;hi<n;hi++){const sv=parseInt(sc[hi]);if(isNaN(sv))continue;netto+=Math.max(1,sv-hcpStrokes(thcp,S.course.indexes[hi],n));}
     return{idx:ti,name:'Lag '+(ti+1),members:t.map(i=>S.players[i].name),gross,netto,played,diff:netto-totalPar,hcp:thcp};
   }).filter(r=>r.played>0).sort((a,b)=>a.netto-b.netto);
-  if(!results.length){el.innerHTML='<div class="empty-state">Mata in scores för att se leaderboard</div>';return;}
-  const cn=S.course.name||'Okänd bana';
-  let h='<div class="info-box">🎄 '+esc(cn)+' · '+S.course.holes+' hål · Par '+totalPar+'</div>';
+  if(!results.length){el.innerHTML='<div class="empty-state">Mata in scores for att se leaderboard</div>';return;}
+  const cn=S.course.name||'Okand bana';
+  let h='<div class="info-box">'+esc(cn)+' · '+S.course.holes+' hal · Par '+totalPar+'</div>';
   h+='<ul class="leaderboard">';
   results.forEach((r,pos)=>{
     const diffStr=r.diff===0?'E':(r.diff>0?'+'+r.diff:''+r.diff);
     const cls=r.diff<0?'under':(r.diff>0?'over':'even');
     h+='<li class="lb-item'+(pos===0?' first':'')+'">';
-    h+='<span class="lb-pos">'+(pos===0?'🌟':(pos+1))+'</span>';
+    h+='<span class="lb-pos">'+(pos+1)+'</span>';
     h+='<span class="lb-name">'+esc(r.name)+'<br><small>'+r.members.map(esc).join(', ')+' · HCP '+r.hcp.toFixed(1)+'</small></span>';
     h+='<span class="lb-scores">';
     h+='<span class="lb-gross">Brutto '+r.gross+'</span>';
@@ -739,13 +740,7 @@ function renderLeaderboard(){
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 function toast(msg){
   const d=document.createElement('div');d.textContent=msg;
-  Object.assign(d.style,{
-    position:'fixed',top:'1rem',left:'50%',transform:'translateX(-50%)',
-    background:'var(--xmas-green)',color:'var(--text-inverse)',
-    padding:'0.55rem 1.4rem',borderRadius:'var(--radius)',fontFamily:'Inter,sans-serif',
-    fontSize:'0.84rem',fontWeight:'500',zIndex:'9998',boxShadow:'var(--shadow-lg)',
-    letterSpacing:'0.3px',border:'1px solid var(--xmas-gold)'
-  });
+  d.className='toast-msg';
   document.body.appendChild(d);
   setTimeout(()=>d.remove(),2200);
 }
