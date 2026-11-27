@@ -62,7 +62,11 @@
     height: 3px;
     background: var(--gold);
   }
-  .header-inner { max-width: 820px; margin: 0 auto; }
+  .header-inner {
+    max-width: 820px; margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
   .header-tag {
     font-family: 'DM Sans', sans-serif;
     font-size: 0.69rem;
@@ -80,13 +84,19 @@
     color: var(--gold-light);
     line-height: 1.15;
   }
-  header .sub {
+  .header-santas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+  .header-santa svg { flex-shrink: 0; }
+  .header-sub {
     font-size: 0.78rem;
     color: var(--green-soft);
     margin-top: 0.35rem;
     letter-spacing: 0.3px;
   }
-  header .sub b { color: var(--gold); font-weight: 600; }
 
   /* ── Nav ── */
   nav {
@@ -393,9 +403,69 @@
 
 <header>
   <div class="header-inner">
-    <div class="header-tag">Golf Scramble &middot; God Jul 2026</div>
-    <h1>SVIT Christmas Tournament</h1>
-    <div class="sub">Registrera spelare, lotta lag och for resultaten <b>live</b></div>
+    <div class="header-tag">Golf Scramble &middot; 2026</div>
+    <div class="header-santas">
+      <span class="header-santa">
+        <svg width="52" height="64" viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left santa body -->
+          <ellipse cx="22" cy="46" rx="14" ry="16" fill="#c0282a"/>
+          <!-- Belt -->
+          <rect x="8" y="43" width="28" height="4" rx="2" fill="#222"/>
+          <rect x="19" y="42" width="6" height="6" rx="1" fill="#ddb44e"/>
+          <!-- Head -->
+          <circle cx="22" cy="26" r="10" fill="#f5cba7"/>
+          <!-- Beard -->
+          <ellipse cx="22" cy="32" rx="9" ry="7" fill="white"/>
+          <!-- Hat -->
+          <path d="M12 26 C12 16, 32 16, 32 26" fill="#c0282a"/>
+          <path d="M32 26 C34 14, 28 6, 26 4" stroke="#c0282a" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="26" cy="4" r="3.5" fill="white"/>
+          <rect x="10" y="24" width="24" height="4" rx="2" fill="white"/>
+          <!-- Eyes -->
+          <circle cx="18" cy="25" r="1.5" fill="#333"/>
+          <circle cx="26" cy="25" r="1.5" fill="#333"/>
+          <!-- Boots -->
+          <ellipse cx="16" cy="61" rx="5" ry="3" fill="#222"/>
+          <ellipse cx="28" cy="61" rx="5" ry="3" fill="#222"/>
+          <!-- Golf club in right hand -->
+          <line x1="36" y1="20" x2="44" y2="52" stroke="#888" stroke-width="2" stroke-linecap="round"/>
+          <rect x="40" y="50" width="10" height="5" rx="2.5" fill="#888" transform="rotate(-10 44 52)"/>
+          <!-- Right arm holding club -->
+          <path d="M34 38 Q38 30 36 22" stroke="#c0282a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <h1>SVIT Christmas<br>Tournament</h1>
+      <span class="header-santa">
+        <svg width="52" height="64" viewBox="0 0 52 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+          <!-- Right santa (mirrored) body -->
+          <ellipse cx="22" cy="46" rx="14" ry="16" fill="#c0282a"/>
+          <!-- Belt -->
+          <rect x="8" y="43" width="28" height="4" rx="2" fill="#222"/>
+          <rect x="19" y="42" width="6" height="6" rx="1" fill="#ddb44e"/>
+          <!-- Head -->
+          <circle cx="22" cy="26" r="10" fill="#f5cba7"/>
+          <!-- Beard -->
+          <ellipse cx="22" cy="32" rx="9" ry="7" fill="white"/>
+          <!-- Hat -->
+          <path d="M12 26 C12 16, 32 16, 32 26" fill="#c0282a"/>
+          <path d="M32 26 C34 14, 28 6, 26 4" stroke="#c0282a" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="26" cy="4" r="3.5" fill="white"/>
+          <rect x="10" y="24" width="24" height="4" rx="2" fill="white"/>
+          <!-- Eyes -->
+          <circle cx="18" cy="25" r="1.5" fill="#333"/>
+          <circle cx="26" cy="25" r="1.5" fill="#333"/>
+          <!-- Boots -->
+          <ellipse cx="16" cy="61" rx="5" ry="3" fill="#222"/>
+          <ellipse cx="28" cy="61" rx="5" ry="3" fill="#222"/>
+          <!-- Golf club -->
+          <line x1="36" y1="20" x2="44" y2="52" stroke="#888" stroke-width="2" stroke-linecap="round"/>
+          <rect x="40" y="50" width="10" height="5" rx="2.5" fill="#888" transform="rotate(-10 44 52)"/>
+          <!-- Arm holding club -->
+          <path d="M34 38 Q38 30 36 22" stroke="#c0282a" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </div>
+    <div class="header-sub">Registrera spelare, lotta lag och for resultaten live</div>
   </div>
 </header>
 
